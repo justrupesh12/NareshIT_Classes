@@ -26,24 +26,24 @@ x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=0)
 
 from sklearn.linear_model import LinearRegression
 
-regression = LinearRegression()
-regression.fit(x_train,y_train)
+regressor = LinearRegression()
+regressor.fit(x_train,y_train)
 
-y_pred=regression.predict(x_test)
+y_pred=regressor.predict(x_test)
 
 
 
 plt.scatter(x_test,y_test,color='red')
-plt.plot(x_train,regression.predict(x_train),color='blue')
+plt.plot(x_train,regressor.predict(x_train),color='blue')
 plt.title('Salary vs Experience (test set')
 plt.xlabel("year of experience ")
 plt.ylabel("Salary")
 plt.show()
 
-m_slop=regression.coef_
+m_slop=regressor.coef_
 print(m_slop)
 
-c_intercept= regression.intercept_
+c_intercept= regressor.intercept_
 print(c_intercept)
 
 y_12=m_slop*12+c_intercept
@@ -54,10 +54,10 @@ comparison=pd.DataFrame({'Actual':y_test,'predicted':y_pred})
 
 print(comparison)
 
-bais= regression.score(x_train, y_train)
+bais= regressor.score(x_train, y_train)
 print(bais)
 
-varience=regression.score(x_test,y_test)
+varience=regressor.score(x_test,y_test)
 print(varience)
 # stat concept need to add into this code 
 
@@ -146,37 +146,16 @@ print(SST)
 r_square=1-(SSR/SST)
 print(r_square)
 
-print(regressor)
 
-import pickel
-filename='linear_regression_modal.pkl'
-with open(filename,'wb') as file:
-    pickel.dump(regressor,file)
-print("model has been picked and saved as linear_regression_model.pkl")    
+# save the trained model to disk
+import pickle
+
+filename='Linear_regression_model.pkl'
+with open(filename, 'wb') as file:
+    pickle.dump(regressor, file)
+
+print('Model has been picked and saved successfully!')
 
 import os
-print(os.getcwd())
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print(os.getcwd())  # Print the current working directory to verify where the model is saved    
+    
